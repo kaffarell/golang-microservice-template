@@ -1,0 +1,84 @@
+version: "3.9"
+
+
+services:
+  example_service:
+    build: ./example
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.example_route.entrypoints=http
+      - traefik.http.routers.example_route.rule=PathPrefix(`/example`)
+      - traefik.http.routers.example_route.service=example_service
+      - traefik.http.services.example_service.loadbalancer.server.port=80
+    networks:
+      - traefik_public
+    depends_on:
+      - seq
+
+  user_service:
+    build: ./user
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.user_route.entrypoints=http
+      - traefik.http.routers.user_route.rule=PathPrefix(`/user`)
+      - traefik.http.routers.user_route.service=user_service
+      - traefik.http.services.user_service.loadbalancer.server.port=80
+    networks:
+      - traefik_public
+    depends_on:
+      - seq
+
+
+  prometheus:
+    image: prom/prometheus
+    networks: 
+      - traefik_public
+    volumes:
+      - "./config:/etc/prometheus"
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    volumes:
+      - "./config/grafana/datasources:/etc/grafana/provisioning/datasources"
+      - "./config/grafana/dashboards:/etc/grafana/provisioning/dashboards"
+      - "./config/grafana/grafana.ini:/etc/grafana/grafana.ini"
+    networks:
+      - traefik_public
+
+  traefik:
+    image: traefik:v2.6
+    ports:
+      - "8080:8080"
+      - "80:80"
+    volumes:
+      - "./config/traefik.yml:/etc/traefik/traefik.yml"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    restart: unless-stopped
+    networks:
+      - traefik_public
+
+  seq:
+    image: datalust/seq
+    ports:
+      - "81:80"
+      #- "5341:5341"
+    volumes:
+      - "./seqdata:/data"
+    environment:
+      - ACCEPT_EULA=Y
+      # admin password
+      - SEQ_FIRSTRUN_ADMINPASSWORDHASH=FMw4y8Yz3YVX+FAEDHTb7D6RC1WF2RVIm2/FImDF63yYGxBtPg==
+    restart: unless-stopped
+    networks:
+      - traefik_public
+
+networks:
+  traefik_public:
+    driver: bridge

@@ -1,21 +1,21 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
+	"net/http"
 	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	app := fiber.New()
-	app.Use(logger.New())
+	router := gin.Default()
 	hostname, _ := os.Hostname()
 
-	router := app.Group("/example")
+	example_service := router.Group("/example")
 
-	router.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello from example service: " + hostname)
+	example_service.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, "Example service: "+hostname)
 	})
 
-	app.Listen(":80")
+	router.Run(":80")
 }
