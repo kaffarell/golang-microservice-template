@@ -20,5 +20,5 @@ func NewExampleController(logger lib.Logger) ExampleController {
 // GetUser gets the user
 func (u ExampleController) Hello(c *gin.Context) {
 	u.logger.Info("Hello World from controller")
-	c.JSON(200, gin.H{"data": "Hello"})
+	c.JSON(200, "Hello there")
 }

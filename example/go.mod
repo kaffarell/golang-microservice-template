@@ -2,7 +2,14 @@ module github.com/kaffarell/golang-microservice-template/example
 
 go 1.18
 
-require github.com/gin-gonic/gin v1.7.7
+replace github.com/kaffarell/golang-microservice-template/lib => ../lib
+
+require (
+	github.com/gin-gonic/gin v1.7.7
+	github.com/kaffarell/golang-microservice-template/lib v0.0.0-00010101000000-000000000000
+	go.uber.org/fx v1.17.1
+	go.uber.org/zap v1.16.0
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -16,6 +23,9 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
+	go.uber.org/atomic v1.6.0 // indirect
+	go.uber.org/dig v1.14.0 // indirect
+	go.uber.org/multierr v1.5.0 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
 	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
