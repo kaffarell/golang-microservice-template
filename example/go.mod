@@ -1,4 +1,4 @@
-module github.com/kaffarell/golang-microservice-template/example_service
+module github.com/kaffarell/golang-microservice-template/example
 
 go 1.18
 
