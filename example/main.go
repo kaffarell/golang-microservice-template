@@ -7,6 +7,7 @@ import (
 	"github.com/kaffarell/golang-microservice-template/example/routes"
 	"github.com/kaffarell/golang-microservice-template/lib"
 	"go.uber.org/fx"
+	"go.uber.org/fx/fxevent"
 	"go.uber.org/zap"
 )
 
@@ -19,12 +20,9 @@ func main() {
 	logger := lib.GetLogger()
 	logger.Info("Hello World")
 	opts := fx.Options(
-		/*
-			fx.WithLogger(func() fxevent.Logger {
-				//return logger.GetFxLogger()
-				return nil
-			}),
-		*/
+		fx.WithLogger(func() fxevent.Logger {
+			return logger.GetFxLogger()
+		}),
 		fx.Invoke(run),
 	)
 	ctx := context.Background()
