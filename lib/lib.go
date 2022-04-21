@@ -7,5 +7,5 @@ import (
 // Module exports dependency
 var Module = fx.Options(
 	fx.Provide(GetLogger),
-	fx.Provide(NewRequestHandler),
+	fx.Provide(NewDefaultGinEngine),
 )

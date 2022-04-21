@@ -5,13 +5,13 @@ import (
 )
 
 // RequestHandler function
-type RequestHandler struct {
+type DefaultGinEngine struct {
 	Gin *gin.Engine
 }
 
 // NewRequestHandler creates a new request handler
-func NewRequestHandler(logger Logger) RequestHandler {
+func NewDefaultGinEngine(logger Logger) DefaultGinEngine {
 	gin.DefaultWriter = logger.GetGinLogger()
 	engine := gin.Default()
-	return RequestHandler{Gin: engine}
+	return DefaultGinEngine{Gin: engine}
 }

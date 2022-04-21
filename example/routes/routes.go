@@ -7,25 +7,25 @@ import (
 
 type ExampleRoutes struct {
 	logger            lib.Logger
-	handler           lib.RequestHandler
+	engine            lib.DefaultGinEngine
 	exampleController controllers.ExampleController
 }
 
 func (e ExampleRoutes) Setup() {
 	e.logger.Info("Setting up routes")
 	// TODO: maybe inject here the service name to use as default route
-	api := e.handler.Gin.Group("/example")
+	api := e.engine.Gin.Group("/example")
 	api.GET("/", e.exampleController.Hello)
 }
 
 func NewExampleRoutes(
 	logger lib.Logger,
-	handler lib.RequestHandler,
+	engine lib.DefaultGinEngine,
 	exampleController controllers.ExampleController,
 ) ExampleRoutes {
 	return ExampleRoutes{
 		logger:            logger,
-		handler:           handler,
+		engine:            engine,
 		exampleController: exampleController,
 	}
 }
