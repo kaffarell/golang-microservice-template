@@ -11,9 +11,9 @@ import (
 	"go.uber.org/zap"
 )
 
-func run(handler lib.RequestHandler, routes routes.ExampleRoutes) {
+func run(engine lib.DefaultGinEngine, routes routes.ExampleRoutes) {
 	routes.Setup()
-	handler.Gin.Run(":80")
+	engine.Gin.Run(":80")
 }
 
 func main() {
