@@ -2,7 +2,11 @@ module github.com/kaffarell/golang-microservices-template/user
 
 go 1.18
 
-require github.com/gin-gonic/gin v1.7.7
+require (
+	github.com/gin-gonic/gin v1.7.7
+	github.com/nullseed/logruseq v0.0.0-20191022112445-275e5c09bb04
+	github.com/sirupsen/logrus v1.8.1
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -17,6 +21,6 @@ require (
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
-	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
+	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
